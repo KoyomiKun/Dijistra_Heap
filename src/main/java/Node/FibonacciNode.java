@@ -29,8 +29,9 @@ public class FibonacciNode implements Node {
     this.parent = null;
     this.child = null;
   }
-
-  public void addChild(FibonacciNode node){
+  @Override
+  public void addChild(Node key){
+    FibonacciNode node = (FibonacciNode) key;
     node.setParent(this);
     if (this.child == null){
       this.child = node;

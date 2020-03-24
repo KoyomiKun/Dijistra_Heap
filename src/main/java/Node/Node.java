@@ -8,5 +8,6 @@ package Node;
  * @version:
  */
 public interface Node {
+  void addChild(Node node);
 
 }

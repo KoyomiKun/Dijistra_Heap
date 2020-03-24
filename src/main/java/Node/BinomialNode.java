@@ -14,8 +14,9 @@ public class BinomialNode implements Node{
   private BinomialNode child;
   private BinomialNode parent;
   private BinomialNode subling;
-
-  public void addChild(BinomialNode node){
+  @Override
+  public void addChild(Node key){
+    BinomialNode node = (BinomialNode) key;
     node.setParent(this);
     node.setSubling(this.child);
     child = node;
