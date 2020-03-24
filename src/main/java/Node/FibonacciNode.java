@@ -4,19 +4,23 @@ package Node;
 /**
  * @author ：komikun
  * @date ：Created in 2020-03-22 14:50
- * @description：
- * @modified By：
- * @version:
  */
 public class FibonacciNode implements Node {
-
+  // 键值
   private int value;
+  // 度数
   private int degree;
+  // 节点编号
   private int index;
+  // 左兄弟
   private FibonacciNode left;
+  // 右兄弟
   private FibonacciNode right;
+  // 孩子
   private FibonacciNode child;
+  // 父亲
   private FibonacciNode parent;
+  // 是否已经失去孩子
   private boolean marked;
 
   public FibonacciNode(int value,int index) {
@@ -29,8 +33,13 @@ public class FibonacciNode implements Node {
     this.parent = null;
     this.child = null;
   }
+  /**
+   * @description 在本节点中添加孩子
+   * @param key 要添加的孩子节点
+   **/
   @Override
   public void addChild(Node key){
+
     FibonacciNode node = (FibonacciNode) key;
     node.setParent(this);
     if (this.child == null){

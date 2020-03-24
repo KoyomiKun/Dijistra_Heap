@@ -3,16 +3,19 @@ package Node;
 /**
  * @author ：komikun
  * @date ：Created in 2020-03-23 16:31
- * @description：
- * @modified By：
- * @version:
  */
 public class BinomialNode implements Node{
+  // 键值
   private int value;
+  // 度数
   private int degree;
+  // 节点编号
   private int index;
+  // 孩子
   private BinomialNode child;
+  // 父亲
   private BinomialNode parent;
+  // 邻居
   private BinomialNode subling;
   @Override
   public void addChild(Node key){
