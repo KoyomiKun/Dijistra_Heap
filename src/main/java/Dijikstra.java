@@ -1,6 +1,7 @@
+import Heap.BinomialHeap;
 import Heap.FibonacciHeap;
 import Node.FibonacciNode;
-import Node.Node;
+import Node.BinomialNode;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import java.io.IOException;
@@ -86,29 +87,30 @@ public class Dijikstra {
   public int[] calMinDistanceByHeap(int from) {
     // heap
     int[] distances = new int[graph.getPoints().length];
-    FibonacciNode[] distanceNodes = new FibonacciNode[graph.getPoints().length];
-    Arrays.setAll(distanceNodes, i -> new FibonacciNode(INFINITY,i));
+//    FibonacciNode[] distanceNodes = new FibonacciNode[graph.getPoints().length];
+    BinomialNode[] distanceNodes = new BinomialNode[graph.getPoints().length];
+    Arrays.setAll(distanceNodes, i -> new BinomialNode(INFINITY,i));
     Arrays.setAll(distances, i -> INFINITY);
-    FibonacciHeap heap = new FibonacciHeap();
+    BinomialHeap heap = new BinomialHeap();
     heap.init(distanceNodes);
     heap.reduceKey(distanceNodes[from],0);
-    distances[from] = heap.popMinNode().getvalue();
+    distances[from] = heap.popMinNode().getValue();
     distanceNodes[from] = null;
     for (Route route : graph.getPoints()[from].getAdjacent()) {
       heap.reduceKey(distanceNodes[route.getTo()],route.getDistance());
     }
     while (true){
-      FibonacciNode minNode = heap.popMinNode();
-      if (minNode.getvalue() == INFINITY){
+      BinomialNode minNode = heap.popMinNode();
+      if (minNode.getValue() == INFINITY){
         break;
       }
       int index = minNode.getIndex();
-      int minValue = minNode.getvalue();
+      int minValue = minNode.getValue();
       distanceNodes[index] = null;
       distances[index] = minValue;
       for (Route route : graph.getPoints()[index].getAdjacent()) {
         if (distanceNodes[route.getTo()] != null) {
-          if (minValue + route.getDistance() < distanceNodes[route.getTo()].getvalue()) {
+          if (minValue + route.getDistance() < distanceNodes[route.getTo()].getValue()) {
             heap.reduceKey(distanceNodes[route.getTo()],minValue + route.getDistance());
           }
         }

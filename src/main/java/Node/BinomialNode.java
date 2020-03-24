@@ -10,16 +10,28 @@ package Node;
 public class BinomialNode implements Node{
   private int value;
   private int degree;
-  BinomialNode child;
-  BinomialNode parent;
-  BinomialNode subling;
+  private int index;
+  private BinomialNode child;
+  private BinomialNode parent;
+  private BinomialNode subling;
 
-  public BinomialNode(int value) {
+  public void addChild(BinomialNode node){
+    node.setParent(this);
+    node.setSubling(this.child);
+    child = node;
+    degree++;
+  }
+  public BinomialNode(int value,int index) {
     this.value = value;
+    this.index = index;
     this.degree = 0;
     this.child = null;
     this.parent = null;
     this.subling = null;
+  }
+
+  public int getIndex() {
+    return index;
   }
 
   public int getValue() {
