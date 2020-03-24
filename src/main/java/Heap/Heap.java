@@ -11,6 +11,5 @@ import Node.Node;
  */
 public interface Heap {
   public Node peekMinNode();
-  public void reduceKey(Node key, int to);
   public Node popMinNode();
 }

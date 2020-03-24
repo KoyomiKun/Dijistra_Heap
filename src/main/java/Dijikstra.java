@@ -84,7 +84,41 @@ public class Dijikstra {
     }
     return distances;
   }
-  public int[] calMinDistanceByHeap(int from) {
+  private int[] calMinDistanceByFibonacciHeap(int from){
+    // heap
+    int[] distances = new int[graph.getPoints().length];
+    FibonacciNode[] distanceNodes = new FibonacciNode[graph.getPoints().length];
+    Arrays.setAll(distanceNodes, i -> new FibonacciNode(INFINITY,i));
+    Arrays.setAll(distances, i -> INFINITY);
+    FibonacciHeap heap = new FibonacciHeap();
+    heap.init(distanceNodes);
+    heap.reduceKey(distanceNodes[from],0);
+    distances[from] = heap.popMinNode().getvalue();
+    distanceNodes[from] = null;
+    for (Route route : graph.getPoints()[from].getAdjacent()) {
+      heap.reduceKey(distanceNodes[route.getTo()],route.getDistance());
+    }
+    while (true){
+      FibonacciNode minNode = heap.popMinNode();
+      if (minNode.getvalue() == INFINITY){
+        break;
+      }
+      int index = minNode.getIndex();
+      int minValue = minNode.getvalue();
+      distanceNodes[index] = null;
+      distances[index] = minValue;
+      for (Route route : graph.getPoints()[index].getAdjacent()) {
+        if (distanceNodes[route.getTo()] != null) {
+          if (minValue + route.getDistance() < distanceNodes[route.getTo()].getvalue()) {
+            heap.reduceKey(distanceNodes[route.getTo()],minValue + route.getDistance());
+          }
+        }
+      }
+    }
+    return distances;
+
+  }
+  private int[] calMinDistanceByBinomialHeap(int from){
     // heap
     int[] distances = new int[graph.getPoints().length];
 //    FibonacciNode[] distanceNodes = new FibonacciNode[graph.getPoints().length];
@@ -93,11 +127,11 @@ public class Dijikstra {
     Arrays.setAll(distances, i -> INFINITY);
     BinomialHeap heap = new BinomialHeap();
     heap.init(distanceNodes);
-    heap.reduceKey(distanceNodes[from],0);
+    heap.reduceKey(distanceNodes[from],0,distanceNodes);
     distances[from] = heap.popMinNode().getValue();
     distanceNodes[from] = null;
     for (Route route : graph.getPoints()[from].getAdjacent()) {
-      heap.reduceKey(distanceNodes[route.getTo()],route.getDistance());
+      heap.reduceKey(distanceNodes[route.getTo()],route.getDistance(),distanceNodes);
     }
     while (true){
       BinomialNode minNode = heap.popMinNode();
@@ -111,12 +145,20 @@ public class Dijikstra {
       for (Route route : graph.getPoints()[index].getAdjacent()) {
         if (distanceNodes[route.getTo()] != null) {
           if (minValue + route.getDistance() < distanceNodes[route.getTo()].getValue()) {
-            heap.reduceKey(distanceNodes[route.getTo()],minValue + route.getDistance());
+            heap.reduceKey(distanceNodes[route.getTo()],minValue + route.getDistance(),distanceNodes);
           }
         }
       }
     }
     return distances;
+  }
+  public int[] calMinDistanceByHeap(int from,String type) {
+    if (type.equals("F")){
+      return calMinDistanceByFibonacciHeap(from);
+    }else if(type.equals("B")){
+      return calMinDistanceByBinomialHeap(from);
+    }
+    return null;
   }
 
 

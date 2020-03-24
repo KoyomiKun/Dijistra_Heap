@@ -10,14 +10,14 @@ package Node;
  */
 public class FibonacciNode implements Node {
 
-  private int value;            // 关键字(键值)
-  private int degree;         // 度数
+  private int value;
+  private int degree;
   private int index;
-  private FibonacciNode left;       // 左兄弟
-  private FibonacciNode right;      // 右兄弟
-  private FibonacciNode child;      // 第一个孩子节点
-  private FibonacciNode parent;     // 父节点
-  private boolean marked;     // 是否被删除第一个孩子
+  private FibonacciNode left;
+  private FibonacciNode right;
+  private FibonacciNode child;
+  private FibonacciNode parent;
+  private boolean marked;
 
   public FibonacciNode(int value,int index) {
     this.value = value;
@@ -42,6 +42,7 @@ public class FibonacciNode implements Node {
       this.child = node;
     }
     this.degree++;
+    node.setMarked(false);
   }
 
   public int getIndex() {

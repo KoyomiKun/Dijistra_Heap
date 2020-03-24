@@ -12,10 +12,9 @@ import java.util.Arrays;
  * @modified By：
  * @version:
  */
-public class FibonacciHeap implements Heap{
+public class FibonacciHeap implements Heap {
 
-  private int nodeNum;         // 堆中节点的总数
-  private int listNodeNum;
+  private int nodeNum;
   private FibonacciNode minNode;        // 最小节点(某个最小堆的根节点)
 
   public FibonacciHeap() {
@@ -26,29 +25,31 @@ public class FibonacciHeap implements Heap{
       return;
     }
     nodeNum = 0;
-    listNodeNum = 0;
     for (int i = 0; i < nodeList.length; i++) {
       insert(nodeList[i]);
     }
   }
+
   /*
    * 将节点node插入到斐波那契堆中
    */
   private void insert(FibonacciNode node) {
-    node.setParent(null);
     if (minNode == null) {
       minNode = node;
     } else {
-      minNode.getRight().setLeft(node);
-      node.setRight(minNode.getRight());
-      minNode.setRight(node);
-      node.setLeft(minNode);
+      insertToRight(node);
       if (node.getvalue() < minNode.getvalue()) {
         minNode = node;
       }
     }
     nodeNum++;
-    listNodeNum++;
+  }
+
+  private void insertToRight(FibonacciNode node) {
+    minNode.getRight().setLeft(node);
+    node.setRight(minNode.getRight());
+    minNode.setRight(node);
+    node.setLeft(minNode);
   }
 
 
@@ -56,43 +57,24 @@ public class FibonacciHeap implements Heap{
    * 删除结点node
    */
   private void removeNode(FibonacciNode node) {
+    reduceKey(node, minNode.getvalue() - 1);
+    popMinNode();
+  }
+
+  private void removeFromList(FibonacciNode node) {
     node.getLeft().setRight(node.getRight());
     node.getRight().setLeft(node.getLeft());
-    node.setLeft(node);
-    node.setRight(node);
   }
-  private void removeNodeFromHeap(FibonacciNode heapNode){
-    FibonacciNode left = heapNode.getLeft();
-    FibonacciNode right = heapNode.getRight();
-    removeNode(heapNode);
-    heapNode.getParent().setDegree(heapNode.getParent().getDegree()-1);
-    if (heapNode.getParent().getChild().equals(heapNode)){
-      if (right != heapNode){
-        heapNode.getParent().setChild(heapNode.getRight());
-      }else{
-        heapNode.getParent().setChild(null);
-      }
-    }
-    nodeNum--;
-  }
-  private void removeNodeFromList(FibonacciNode listNode){
-    if (listNode.getRight() == listNode){
-      minNode = null;
-    }
-    removeNode(listNode);
-    nodeNum--;
-    listNodeNum--;
-  }
+
   /*
    * 将node链接到root根结点
    */
-  private FibonacciNode mergeNode(FibonacciNode n1,FibonacciNode n2) {
-    if (n1.getvalue() > n2.getvalue()) {
-      return mergeNode(n2,n1);
-    }
+  private FibonacciNode mergeNode(FibonacciNode n1, FibonacciNode n2) {
+    removeFromList(n2);
     n1.addChild(n2);
     return n1;
   }
+
   /*
    * 移除最小节点
    */
@@ -109,25 +91,34 @@ public class FibonacciHeap implements Heap{
       return null;
     }
     FibonacciNode p = minNode.getChild();
-    for (int i = 0; i < minNode.getDegree(); i++) {
+    while (p != null) {
       FibonacciNode next = p.getRight();
-      insert(p);
-      nodeNum--;
-      p = next;
+      removeFromList(p);
+      if (p.getRight() == p) {
+        minNode.setChild(null);
+      } else {
+        minNode.setChild(next);
+      }
+      insertToRight(p);
+      p.setParent(null);
+      p = minNode.getChild();
     }
     FibonacciNode next = minNode.getRight();
-    removeNodeFromList(min);
-    if(minNode != null){
+    removeFromList(min);
+    if (min.getRight().equals(min)) {
+      minNode = null;
+    } else {
       minNode = next;
       declineDgree();
     }
-
+    nodeNum--;
     return min;
   }
+
   private void declineDgree() {
     int currentNodeNum = nodeNum;
     FibonacciNode[] degrees = new FibonacciNode[nodeNum];
-    Arrays.setAll(degrees,x->null);
+    Arrays.setAll(degrees, x -> null);
 //    int i = listNodeNum;
 //    FibonacciNode current = minNode;
 //    do {
@@ -154,63 +145,85 @@ public class FibonacciHeap implements Heap{
       // cons[d] != null，意味着有两棵树(x和y)的"度数"相同。
       while (degrees[degree] != null) {
         FibonacciNode d = degrees[degree];                // y是"与x的度数相同的树"
-        mergeNode(current,d);
-        if (d.getvalue() < current.getvalue()){
+        if (current.getvalue() > d.getvalue()) {
+          FibonacciNode tmp = current;
           current = d;
+          d = tmp;
         }
+        mergeNode(current, d);
         degrees[degree] = null;
         degree++;
       }
       degrees[degree] = current;
     }
-    // 将cons中的结点重新加到根表中
+    minNode = null;
     for (FibonacciNode degree : degrees) {
-      if (degree != null){
+      if (degree != null) {
         insert(degree);
       }
     }
     nodeNum = currentNodeNum;
 
   }
-  private FibonacciNode popMinTree(){
+
+  private FibonacciNode popMinTree() {
     FibonacciNode next = minNode.getRight();
     FibonacciNode current = minNode;
-    removeNodeFromList(current);
-    if (minNode!=null){
+    if (current == next) {
+      minNode = null;
+    } else {
+      removeFromList(current);
       minNode = next;
     }
+    current.setLeft(current);
+    current.setRight(current);
     return current;
   }
-  @Override
-  public void reduceKey(Node node, int to) {
-    FibonacciNode key = (FibonacciNode)node;
-    key.setvalue(to);
-    if (key.getParent() == null) {
-      if (key.getvalue() < minNode.getvalue()) {
-        minNode = key;
-      }
-      return;
-    }
-    if (key.getParent().getvalue() < to) {
-      return;
-    }
-    while (key.getParent() != null) {
-      FibonacciNode parent = key.getParent();
-      removeNodeFromHeap(key);
-      insert(key);
-      if (parent.isMarked() == false) {
-        parent.setMarked(true);
-        break;
+
+  private void setForFather(FibonacciNode node) {
+    FibonacciNode father = node.getParent();
+    if (father != null) {
+      if (!node.isMarked()) {
+        node.setMarked(true);
       } else {
-        parent.setMarked(false);
+        setForChild(node,father);
+        setForFather(father);
       }
-      key = parent;
+    }
+  }
+
+  private void setForChild(FibonacciNode key, FibonacciNode father) {
+    removeFromList(key);
+    father.setDegree(father.getDegree() - 1);
+    if (key.equals(key.getRight())) {
+      father.setChild(null);
+    } else {
+      father.setChild(key.getRight());
+    }
+    key.setParent(null);
+    key.setLeft(key);
+    key.setRight(key);
+    key.setMarked(false);
+    insertToRight(key);
+  }
+
+  public void reduceKey(Node node, int to) {
+    FibonacciNode key = (FibonacciNode) node;
+    if (minNode == null || key == null) {
+      return;
+    }
+    key.setvalue(to);
+    FibonacciNode father = key.getParent();
+    if (father != null && key.getvalue() < father.getvalue()) {
+      setForChild(key, father);
+
+      setForFather(father);
+    }
+    if (minNode.getvalue() > to) {
+      minNode = key;
     }
 
   }
-
-
-
 
 
 }

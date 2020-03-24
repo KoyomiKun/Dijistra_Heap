@@ -165,16 +165,20 @@ public class BinomialHeap implements Heap {
 
   }
 
-  @Override
-  public void reduceKey(Node node, int to) {
+  public void reduceKey(Node node, int to,BinomialNode[] distances) {
     BinomialNode key = (BinomialNode) node;
     key.setValue(to);
     BinomialNode p = key;
     BinomialNode father = ((BinomialNode) node).getParent();
     while(father != null && p.getValue()<father.getValue()) {
       int tmp = father.getValue();
+      int tmpIndex = father.getIndex();
       father.setValue(p.getValue());
+      father.setIndex(p.getIndex());
       p.setValue(tmp);
+      distances[p.getIndex()] = father;
+      p.setIndex(tmpIndex);
+      distances[tmpIndex] = p;
       p = father;
       father = p.getParent();
     }

@@ -30,6 +30,10 @@ public class BinomialNode implements Node{
     this.subling = null;
   }
 
+  public void setIndex(int index) {
+    this.index = index;
+  }
+
   public int getIndex() {
     return index;
   }
