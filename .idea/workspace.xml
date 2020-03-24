@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bfe764e-a658-4656-8463-6b42f4e538c4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Heap/FibonacciHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Heap/FibonacciHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Node/BinomialNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node/BinomialNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Node/FibonacciNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node/FibonacciNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Node/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dijikstra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dijikstra.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,10 +17,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Heap/FibonacciHeap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
+            <state relative-caret-position="420">
               <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -34,14 +31,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Dijikstra.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-264">
-              <caret line="110" column="51" lean-forward="true" selection-start-line="110" selection-start-column="51" selection-end-line="110" selection-end-column="51" />
+            <state relative-caret-position="3000">
+              <caret line="200" selection-start-line="200" selection-end-line="200" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5512#5513#0" expanded="true" />
+                <element signature="e#6378#6379#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -196,12 +193,12 @@
         <option value="$PROJECT_DIR$/src/main/resources/test" />
         <option value="$PROJECT_DIR$/src/main/java/Heap/Heap.java" />
         <option value="$PROJECT_DIR$/src/main/java/Heap/BinomialHeap.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Dijikstra.java" />
         <option value="$PROJECT_DIR$/src/test/java/DijikstraTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/Node/Node.java" />
         <option value="$PROJECT_DIR$/src/main/java/Node/FibonacciNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/Node/BinomialNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/Heap/FibonacciHeap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Dijikstra.java" />
       </list>
     </option>
   </component>
@@ -221,8 +218,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="78" />
-    <option name="y" value="69" />
+    <option name="x" value="109" />
+    <option name="y" value="50" />
     <option name="width" value="1280" />
     <option name="height" value="777" />
   </component>
@@ -412,7 +409,7 @@
       <workItem from="1584874214876" duration="291000" />
       <workItem from="1584926558087" duration="969000" />
       <workItem from="1584927629153" duration="24502000" />
-      <workItem from="1585009578014" duration="10780000" />
+      <workItem from="1585009578014" duration="11773000" />
     </task>
     <servers />
   </component>
@@ -449,7 +446,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46800000" />
+    <option name="totallyTimeSpent" value="47793000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -461,7 +458,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="78" y="69" width="1280" height="777" extended-state="0" />
+    <frame x="109" y="50" width="1280" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19547658" />
@@ -697,17 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Dijikstra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="110" column="51" lean-forward="true" selection-start-line="110" selection-start-column="51" selection-end-line="110" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5512#5513#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/DijikstraTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="77">
@@ -773,12 +759,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Heap/FibonacciHeap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
+        <state relative-caret-position="420">
           <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1774#1775#0" expanded="true" />
             <element signature="e#1798#1799#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Dijikstra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3000">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6378#6379#0" expanded="true" />
           </folding>
         </state>
       </provider>
