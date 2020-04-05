@@ -9,9 +9,6 @@ import org.junit.Test;
 /**
  * @author ：komikun
  * @date ：Created in 2020-03-22 15:59
- * @description：
- * @modified By：
- * @version:
  */
 public class FibonacciHeapTest {
   static final List<Integer> myData = new ArrayList<Integer>(Arrays.asList(9,4,5,3,8,1,6,2,10));

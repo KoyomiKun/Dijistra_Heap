@@ -138,7 +138,8 @@ public class FibonacciHeap implements Heap {
   private void declineDgree() {
 
     int currentNodeNum = nodeNum;
-    FibonacciNode[] degrees = new FibonacciNode[nodeNum];
+    int de = (int)Math.floor(Math.log(nodeNum)/Math.log(2.0))+1;
+    FibonacciNode[] degrees = new FibonacciNode[de+1];
     Arrays.setAll(degrees, x -> null);
 //    int i = listNodeNum;
 //    FibonacciNode current = minNode;
